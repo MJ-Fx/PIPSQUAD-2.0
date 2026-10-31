@@ -1377,12 +1377,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-  /* ===== Overflow containment for Interest Rates section ===== */
+  /* ===== Global overflow safety net (stops horizontal drift) ===== */
   html, body {
-    overflow-x: hidden;          /* global safety net — fixes any stray overflow */
+    overflow-x: hidden;
     max-width: 100%;
   }
 
+  /* ===== Section container ===== */
   .interest-rates-extra {
     background: linear-gradient(180deg, var(--white) 0%, var(--off-white) 100%);
     border-radius: var(--radius-lg);
@@ -1393,24 +1394,41 @@ document.addEventListener('DOMContentLoaded', function() {
     box-sizing: border-box;
   }
 
+  /* ===== Features: 4 across on desktop ===== */
   .interest-rates-extra .features-grid {
-    margin: 0 auto 40px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin: 0 auto 50px;
     padding: 0;
     max-width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   }
 
-  .interest-rates-extra .mission-values,
-  .interest-rates-extra .pros-cons-grid {
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  /* ===== Mechanics: 4 across on desktop ===== */
+  .interest-rates-extra .mission-values {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
     min-width: 0;
   }
 
+  /* ===== Stats: 3 across ===== */
   .interest-rates-extra .results-stats {
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
     min-width: 0;
   }
 
+  /* ===== Pros / Cons: 2 across ===== */
+  .interest-rates-extra .pros-cons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    min-width: 0;
+  }
+
+  /* ===== Card containment so text wraps instead of overflowing ===== */
   .interest-rates-extra .feature-card,
   .interest-rates-extra .value-card,
   .interest-rates-extra .pros-cons-card,
@@ -1427,6 +1445,7 @@ document.addEventListener('DOMContentLoaded', function() {
     overflow-wrap: anywhere;
   }
 
+  /* ===== Reveal fallback + icon colouring ===== */
   .interest-rates-extra .reveal { opacity: 1; transform: none; }
 
   .interest-rates-extra .feature-icon svg,
@@ -1441,8 +1460,26 @@ document.addEventListener('DOMContentLoaded', function() {
     stroke: var(--white);
   }
 
-  @media (max-width: 640px) {
-    .interest-rates-extra { padding: 40px 16px; border-radius: var(--radius-md); margin: 24px 0; }
+  /* ===== Responsive breakpoints ===== */
+  @media (max-width: 1024px) {
+    .interest-rates-extra .features-grid,
+    .interest-rates-extra .mission-values {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .interest-rates-extra {
+      padding: 40px 20px;
+      border-radius: var(--radius-md);
+      margin: 24px 0;
+    }
+    .interest-rates-extra .features-grid,
+    .interest-rates-extra .mission-values,
+    .interest-rates-extra .results-stats,
+    .interest-rates-extra .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 <script>
