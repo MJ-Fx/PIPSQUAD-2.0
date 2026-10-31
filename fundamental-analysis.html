@@ -1376,14 +1376,72 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Scoped visual fix for the new Interest Rates & Forex section only -->
+<style>
+  /* Make sure .reveal cards in this section are visible if the site JS doesn't add .visible */
+  .interest-rates-extra .reveal {
+    opacity: 1;
+    transform: none;
+  }
 
+  /* Force the blue stroke on the new feature icons (SVGs use fill="none") */
+  .interest-rates-extra .feature-icon svg {
+    stroke: var(--blue);
+    fill: none;
+  }
+  .interest-rates-extra .feature-icon svg path,
+  .interest-rates-extra .feature-icon svg circle {
+    stroke: var(--blue);
+    fill: none;
+  }
+  .interest-rates-extra .feature-card:hover .feature-icon svg,
+  .interest-rates-extra .feature-card:hover .feature-icon svg path,
+  .interest-rates-extra .feature-card:hover .feature-icon svg circle {
+    stroke: var(--white);
+  }
+
+  /* Slightly richer look for the new section without changing global styles */
+  .interest-rates-extra {
+    background: linear-gradient(180deg, var(--white) 0%, var(--off-white) 100%);
+    border-radius: var(--radius-lg);
+    padding: 60px 40px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .interest-rates-extra { padding: 40px 20px; border-radius: var(--radius-md); }
+  }
+</style>
+
+<script>
+  // Reveal animation for the new section's .reveal cards
+  (function () {
+    var els = document.querySelectorAll('.interest-rates-extra .reveal');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) {
+      // start hidden for the animation, then reveal on scroll
+      el.style.opacity = '';
+      el.style.transform = '';
+      io.observe(el);
+    });
+  })();
+</script>
    
 
      <!-- JavaScript -->
      <script src="nav.js"></script>
 <script src="main.js"></script>
-<script src="fundamental-analysis.js"></script>
-<script src="typing-effect.js"></script>
 </body>
 </html>
 
