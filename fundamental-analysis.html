@@ -1263,8 +1263,8 @@
             <h2>Ready to Master Fundamental Analysis?</h2>
             <p>Join our premium membership for in-depth valuation models, analyst reports, and live fundamental analysis workshops</p>
             <div class="cta-buttons">
-                <a href="https://chat.whatsapp.com/D1Pj3rGkiK6FLyABIWQqbi" target="_blank" class="btn btn-secondary" class="btn btn-primary">Become Member</a>
-                <a href="https://chat.whatsapp.com/D1Pj3rGkiK6FLyABIWQqbi" target="_blank" class="btn btn-secondary" class="btn btn-secondary">View Courses</a>
+                <a href="https://chat.whatsapp.com/D1Pj3rGkiK6FLyABIWQqbi" target="_blank"  class="btn btn-primary">Become Member</a>
+                <a href="https://chat.whatsapp.com/D1Pj3rGkiK6FLyABIWQqbi" target="_blank"  class="btn btn-secondary">View Courses</a>
             </div>
         </div>
     </section>
@@ -1376,70 +1376,59 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Scoped visual + overflow fix for the new Interest Rates & Forex section only -->
 <style>
-  /* ---- 1. Containment: stop this section from ever causing horizontal scroll ---- */
+  /* ===== Overflow containment for Interest Rates section ===== */
+  html, body {
+    overflow-x: hidden;          /* global safety net — fixes any stray overflow */
+    max-width: 100%;
+  }
+
   .interest-rates-extra {
     background: linear-gradient(180deg, var(--white) 0%, var(--off-white) 100%);
     border-radius: var(--radius-lg);
     padding: 60px 40px;
     margin: 40px 0;
-    /* hard containment */
     max-width: 100%;
     overflow: hidden;
     box-sizing: border-box;
   }
 
-  /* Neutralise the base grid's negative top margin inside this section only */
   .interest-rates-extra .features-grid {
     margin: 0 auto 40px;
     padding: 0;
     max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   }
 
-  /* Let grid tracks shrink below content width on small screens */
-  .interest-rates-extra .features-grid,
   .interest-rates-extra .mission-values,
   .interest-rates-extra .pros-cons-grid {
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     min-width: 0;
   }
 
-  /* Stats: allow them to wrap instead of forcing 3 columns */
   .interest-rates-extra .results-stats {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     min-width: 0;
-  }
-  .interest-rates-extra .results-stats .stat-item,
-  .interest-rates-extra .stat-number,
-  .interest-rates-extra .stat-label {
-    min-width: 0;
-    overflow-wrap: anywhere;
   }
 
-  /* Cards: never wider than their track */
   .interest-rates-extra .feature-card,
   .interest-rates-extra .value-card,
-  .interest-rates-extra .pros-cons-card {
+  .interest-rates-extra .pros-cons-card,
+  .interest-rates-extra .stat-item {
     min-width: 0;
     max-width: 100%;
     box-sizing: border-box;
+    overflow-wrap: anywhere;
   }
 
-  /* Quote: contain long words */
   .interest-rates-extra .founder-quote {
     min-width: 0;
     max-width: 100%;
     overflow-wrap: anywhere;
   }
 
-  /* ---- 2. Reveal visibility fallback ---- */
-  .interest-rates-extra .reveal {
-    opacity: 1;
-    transform: none;
-  }
+  .interest-rates-extra .reveal { opacity: 1; transform: none; }
 
-  /* ---- 3. Blue icon strokes ---- */
   .interest-rates-extra .feature-icon svg,
   .interest-rates-extra .feature-icon svg path,
   .interest-rates-extra .feature-icon svg circle {
@@ -1452,16 +1441,10 @@ document.addEventListener('DOMContentLoaded', function() {
     stroke: var(--white);
   }
 
-  /* ---- 4. Small screens ---- */
   @media (max-width: 640px) {
-    .interest-rates-extra {
-      padding: 40px 16px;
-      border-radius: var(--radius-md);
-      margin: 24px 0;
-    }
+    .interest-rates-extra { padding: 40px 16px; border-radius: var(--radius-md); margin: 24px 0; }
   }
 </style>
-
 <script>
   // Reveal animation for the new section's .reveal cards
   (function () {
